@@ -12,17 +12,28 @@ import MapKit
 public class PaceAPI: NSObject {
     let semaphore = DispatchSemaphore(value: 0)
     var stopPredictionType: PTPredictionType
+    var retryIfTimedOut = true
+    
+    public init(stopPredictionType: PTPredictionType, retryIfTimedOut: Bool) {
+        self.retryIfTimedOut = retryIfTimedOut
+        self.stopPredictionType = stopPredictionType
+    }
     
     ///Use this instance if querying stop predictions to set the requested prediction type. Otherwise it defaults to arrivals.
     public init(stopPredictionType: PTPredictionType) {
         self.stopPredictionType = stopPredictionType
     }
     
+    public init(retryIfTimedOut: Bool) {
+        self.stopPredictionType = .arrivals
+        self.retryIfTimedOut = retryIfTimedOut
+    }
+    
     override public init() {
         self.stopPredictionType = .arrivals
     }
     
-    ///Returns a list of all currently running Pace routes.
+    ///Returns a list of all currently running Pace routes
     public func getRoutes() -> [PTRoute] {
         var returnedData: [String: Any] = [:]
         var routeArray: [PTRoute] = []
@@ -35,8 +46,8 @@ public class PaceAPI: NSObject {
         
         let routes: [[String: Any]] = returnedData["d"] as? [[String : Any]] ?? []
         for route in routes {
-            let name = route["name"] as! String
-            routeArray.append(PTRoute(id: route["id"] as! Int, number: Int(name.components(separatedBy: " - ").first ?? "0")!, name: name.components(separatedBy: " - ").dropFirst().joined(separator: " - "), fullName: name))
+            let name = route["name"] as? String ?? ""
+            routeArray.append(PTRoute(id: route["id"] as? Int ?? 0, number: Int(name.components(separatedBy: " - ").first ?? "0") ?? 000, name: name.components(separatedBy: " - ").dropFirst().joined(separator: " - "), fullName: name))
         }
         
         return routeArray
@@ -73,7 +84,7 @@ public class PaceAPI: NSObject {
         }
         self.semaphore.wait()
         
-        let stops: [[String: Any]] = returnedData["d"] as! [[String : Any]]
+        let stops: [[String: Any]] = returnedData["d"] as? [[String : Any]] ?? []
         for stop in stops {
             idArray.append(stop["id"] as? Int ?? -1)
         }
@@ -145,15 +156,15 @@ public class PaceAPI: NSObject {
             let stopName = stop["stopName"] as? String ?? ""
             let stopNumber = stop["stopNumber"] as? Int ?? 0
             let timePointID = stop["timePointID"] as? Int ?? 0
-            let direction: PTDirection? = {
+            let direction: PTDirection = {
                 for routeDirection in routeDirections {
                     if routeDirection.id == directionID {
                         return routeDirection
                     }
                 }
-                return nil
+                return PTDirection(id: 0, name: "Unknown")
             }()
-            stopArray.append(PTStop(id: stopID, name: stopName, timePointID: timePointID, direction: direction!, directionName: directionName, location: location, number: stopNumber))
+            stopArray.append(PTStop(id: stopID, name: stopName, timePointID: timePointID, direction: direction, directionName: directionName, location: location, number: stopNumber))
         }
         
         return stopArray
@@ -190,7 +201,7 @@ public class PaceAPI: NSObject {
     }
     
     ///Returns an MKPolyline for overlaying on an MKMapView from a given route ID.
-    public func getPolyLineForRouteID(routeID: Int) -> MKPolyline {
+    public func getPolyLineForRouteID(routeID: Int) -> [CLLocationCoordinate2D] {
         var rawData: Data = Data()
         var jsonResult: [String: Any] = [:]
         
@@ -224,15 +235,15 @@ public class PaceAPI: NSObject {
         }
         
         let data = jsonResult["d"] as? [String: Any] ?? [:]
-        let rawPolylineList = data["polylines"] as? [[String: Any]] ?? []
+        let rawPolylineList = data["polylines"] as? [[[String: Any]]] ?? []
         var coordinateArray: [CLLocationCoordinate2D] = []
-        
-        for rawPolyline in rawPolylineList {
+
+        for rawPolyline in rawPolylineList[0] {
             let latitude = rawPolyline["lat"] as? Double ?? 0.0
             let longitude = rawPolyline["lon"] as? Double ?? 0.0
             coordinateArray.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
         }
-        return MKPolyline(coordinates: coordinateArray, count: coordinateArray.count)
+        return coordinateArray
     }
     
     ///Gets the current location of a Pace vehicle for its unique vehicle ID.
@@ -259,8 +270,12 @@ public class PaceAPI: NSObject {
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(["Error": "Request failed: \(error.localizedDescription)"])
+            if let error = error as? NSError {
+                if (error.code == NSURLErrorTimedOut && self.retryIfTimedOut) {
+                    self.theScraperrrrr(endpoint: endpoint) { result in
+                        completion(result)
+                    }
+                }
                 return
             }
             

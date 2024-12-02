@@ -17,6 +17,13 @@ public struct PTRoute {
     ///"number - name"
     public var fullName: String
     
+    public init(id: Int, number: Int, name: String, fullName: String) {
+        self.id = id
+        self.number = number
+        self.name = name
+        self.fullName = fullName
+    }
+    
     public func colors() -> (main: NSColor, accent: NSColor) {
         if number > 150 { //incredibly simple check
             return (NSColor.white, NSColor(r: 0, g: 83, b: 159))

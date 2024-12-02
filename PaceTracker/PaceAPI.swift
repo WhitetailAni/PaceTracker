@@ -422,10 +422,6 @@ public class PaceAPI: NSObject {
                 self.semaphore.signal()
             }
             
-            if let response = response as? HTTPURLResponse {
-                print(response.statusCode)
-            }
-            
             if let data: Data = data {
                 rawData = data
                 self.semaphore.signal()

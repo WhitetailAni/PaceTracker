@@ -1,0 +1,409 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		42D999E62CFD3A7700A060A2 /* PTPrediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999DB2CFD3A7700A060A2 /* PTPrediction.swift */; };
+		42D999E72CFD3A7700A060A2 /* PTTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999E22CFD3A7700A060A2 /* PTTime.swift */; };
+		42D999E82CFD3A7700A060A2 /* PTRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999E02CFD3A7700A060A2 /* PTRoute.swift */; };
+		42D999E92CFD3A7700A060A2 /* PTPredictionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999DD2CFD3A7700A060A2 /* PTPredictionType.swift */; };
+		42D999EA2CFD3A7700A060A2 /* PaceAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999E52CFD3A7700A060A2 /* PaceAPI.swift */; };
+		42D999EB2CFD3A7700A060A2 /* PTDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999DF2CFD3A7700A060A2 /* PTDirection.swift */; };
+		42D999EC2CFD3A7700A060A2 /* PTVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999E32CFD3A7700A060A2 /* PTVehicle.swift */; };
+		42D999ED2CFD3A7700A060A2 /* PTPredictionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999DC2CFD3A7700A060A2 /* PTPredictionSet.swift */; };
+		42D999EE2CFD3A7700A060A2 /* PTStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999E12CFD3A7700A060A2 /* PTStop.swift */; };
+		42D999F52CFD3B0600A060A2 /* PaceTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 42D999F42CFD3B0600A060A2 /* PaceTracker.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		42D999C52CFD3A4000A060A2 /* PaceTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PaceTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42D999DB2CFD3A7700A060A2 /* PTPrediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTPrediction.swift; sourceTree = "<group>"; };
+		42D999DC2CFD3A7700A060A2 /* PTPredictionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTPredictionSet.swift; sourceTree = "<group>"; };
+		42D999DD2CFD3A7700A060A2 /* PTPredictionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTPredictionType.swift; sourceTree = "<group>"; };
+		42D999DF2CFD3A7700A060A2 /* PTDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTDirection.swift; sourceTree = "<group>"; };
+		42D999E02CFD3A7700A060A2 /* PTRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTRoute.swift; sourceTree = "<group>"; };
+		42D999E12CFD3A7700A060A2 /* PTStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTStop.swift; sourceTree = "<group>"; };
+		42D999E22CFD3A7700A060A2 /* PTTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTTime.swift; sourceTree = "<group>"; };
+		42D999E32CFD3A7700A060A2 /* PTVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTVehicle.swift; sourceTree = "<group>"; };
+		42D999E52CFD3A7700A060A2 /* PaceAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaceAPI.swift; sourceTree = "<group>"; };
+		42D999F42CFD3B0600A060A2 /* PaceTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaceTracker.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		42D999C22CFD3A4000A060A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		42D999BB2CFD3A4000A060A2 = {
+			isa = PBXGroup;
+			children = (
+				42D999F12CFD3AC600A060A2 /* PaceTracker */,
+				42D999C62CFD3A4000A060A2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		42D999C62CFD3A4000A060A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				42D999C52CFD3A4000A060A2 /* PaceTracker.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		42D999F12CFD3AC600A060A2 /* PaceTracker */ = {
+			isa = PBXGroup;
+			children = (
+				42D999E52CFD3A7700A060A2 /* PaceAPI.swift */,
+				42D999F42CFD3B0600A060A2 /* PaceTracker.h */,
+				42D999F22CFD3AD100A060A2 /* Structs */,
+			);
+			path = PaceTracker;
+			sourceTree = "<group>";
+		};
+		42D999F22CFD3AD100A060A2 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				42D999F32CFD3AD700A060A2 /* Predictions */,
+				42D999DF2CFD3A7700A060A2 /* PTDirection.swift */,
+				42D999E02CFD3A7700A060A2 /* PTRoute.swift */,
+				42D999E12CFD3A7700A060A2 /* PTStop.swift */,
+				42D999E22CFD3A7700A060A2 /* PTTime.swift */,
+				42D999E32CFD3A7700A060A2 /* PTVehicle.swift */,
+			);
+			path = Structs;
+			sourceTree = "<group>";
+		};
+		42D999F32CFD3AD700A060A2 /* Predictions */ = {
+			isa = PBXGroup;
+			children = (
+				42D999DB2CFD3A7700A060A2 /* PTPrediction.swift */,
+				42D999DC2CFD3A7700A060A2 /* PTPredictionSet.swift */,
+				42D999DD2CFD3A7700A060A2 /* PTPredictionType.swift */,
+			);
+			path = Predictions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		42D999C02CFD3A4000A060A2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42D999F52CFD3B0600A060A2 /* PaceTracker.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		42D999C42CFD3A4000A060A2 /* PaceTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 42D999CB2CFD3A4000A060A2 /* Build configuration list for PBXNativeTarget "PaceTracker" */;
+			buildPhases = (
+				42D999C02CFD3A4000A060A2 /* Headers */,
+				42D999C12CFD3A4000A060A2 /* Sources */,
+				42D999C22CFD3A4000A060A2 /* Frameworks */,
+				42D999C32CFD3A4000A060A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PaceTracker;
+			packageProductDependencies = (
+			);
+			productName = PaceTracker;
+			productReference = 42D999C52CFD3A4000A060A2 /* PaceTracker.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		42D999BC2CFD3A4000A060A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1610;
+				TargetAttributes = {
+					42D999C42CFD3A4000A060A2 = {
+						CreatedOnToolsVersion = 16.1;
+					};
+				};
+			};
+			buildConfigurationList = 42D999BF2CFD3A4000A060A2 /* Build configuration list for PBXProject "PaceTracker" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 42D999BB2CFD3A4000A060A2;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 42D999C62CFD3A4000A060A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42D999C42CFD3A4000A060A2 /* PaceTracker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		42D999C32CFD3A4000A060A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		42D999C12CFD3A4000A060A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42D999E62CFD3A7700A060A2 /* PTPrediction.swift in Sources */,
+				42D999E72CFD3A7700A060A2 /* PTTime.swift in Sources */,
+				42D999E82CFD3A7700A060A2 /* PTRoute.swift in Sources */,
+				42D999E92CFD3A7700A060A2 /* PTPredictionType.swift in Sources */,
+				42D999EA2CFD3A7700A060A2 /* PaceAPI.swift in Sources */,
+				42D999EB2CFD3A7700A060A2 /* PTDirection.swift in Sources */,
+				42D999EC2CFD3A7700A060A2 /* PTVehicle.swift in Sources */,
+				42D999ED2CFD3A7700A060A2 /* PTPredictionSet.swift in Sources */,
+				42D999EE2CFD3A7700A060A2 /* PTStop.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		42D999CC2CFD3A4000A060A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.whitetailani.PaceTracker;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		42D999CD2CFD3A4000A060A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = com.whitetailani.PaceTracker;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		42D999CE2CFD3A4000A060A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		42D999CF2CFD3A4000A060A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		42D999BF2CFD3A4000A060A2 /* Build configuration list for PBXProject "PaceTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42D999CE2CFD3A4000A060A2 /* Debug */,
+				42D999CF2CFD3A4000A060A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		42D999CB2CFD3A4000A060A2 /* Build configuration list for PBXNativeTarget "PaceTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42D999CC2CFD3A4000A060A2 /* Debug */,
+				42D999CD2CFD3A4000A060A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 42D999BC2CFD3A4000A060A2 /* Project object */;
+}

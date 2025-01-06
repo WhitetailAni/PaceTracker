@@ -7,7 +7,7 @@
 
 import AppKit
 
-public struct PTRoute {
+public struct PTRoute: @unchecked Sendable {
     ///The route's ID, for API purposes.
     public var id: Int
     ///The route's public number, posted on schedules, signs, and buses.

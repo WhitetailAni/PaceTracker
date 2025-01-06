@@ -34,7 +34,7 @@ public class PaceAPI: NSObject {
     }
     
     ///Returns a list of all currently running Pace routes
-    public func getRoutes() -> [PTRoute] {
+    public func getRoutes(dropPulseNumbers: Bool = false) -> [PTRoute] {
         var returnedData: [String: Any] = [:]
         var routeArray: [PTRoute] = []
         
@@ -46,7 +46,10 @@ public class PaceAPI: NSObject {
         
         let routes: [[String: Any]] = returnedData["d"] as? [[String : Any]] ?? []
         for route in routes {
-            let name = route["name"] as? String ?? ""
+            var name = route["name"] as? String ?? ""
+            if name.contains("Pulse") && dropPulseNumbers {
+                name = String(name.dropFirst(6))
+            }
             routeArray.append(PTRoute(id: route["id"] as? Int ?? 0, number: Int(name.components(separatedBy: " - ").first ?? "0") ?? 000, name: name.components(separatedBy: " - ").dropFirst().joined(separator: " - "), fullName: name))
         }
         

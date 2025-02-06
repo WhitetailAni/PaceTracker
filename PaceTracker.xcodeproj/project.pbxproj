@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42A3ACF32D303AD600D15216 /* PTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A3ACF22D303AD500D15216 /* PTError.swift */; };
 		42D999E62CFD3A7700A060A2 /* PTPrediction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999DB2CFD3A7700A060A2 /* PTPrediction.swift */; };
 		42D999E72CFD3A7700A060A2 /* PTTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999E22CFD3A7700A060A2 /* PTTime.swift */; };
 		42D999E82CFD3A7700A060A2 /* PTRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D999E02CFD3A7700A060A2 /* PTRoute.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42A3ACF22D303AD500D15216 /* PTError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTError.swift; sourceTree = "<group>"; };
 		42D999C52CFD3A4000A060A2 /* PaceTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PaceTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42D999DB2CFD3A7700A060A2 /* PTPrediction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTPrediction.swift; sourceTree = "<group>"; };
 		42D999DC2CFD3A7700A060A2 /* PTPredictionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTPredictionSet.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 		42D999F22CFD3AD100A060A2 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
+				42A3ACF22D303AD500D15216 /* PTError.swift */,
 				42D999F32CFD3AD700A060A2 /* Predictions */,
 				42D999DF2CFD3A7700A060A2 /* PTDirection.swift */,
 				42D999E02CFD3A7700A060A2 /* PTRoute.swift */,
@@ -183,6 +186,7 @@
 				42D999EB2CFD3A7700A060A2 /* PTDirection.swift in Sources */,
 				42D999EC2CFD3A7700A060A2 /* PTVehicle.swift in Sources */,
 				42D999ED2CFD3A7700A060A2 /* PTPredictionSet.swift in Sources */,
+				42A3ACF32D303AD600D15216 /* PTError.swift in Sources */,
 				42D999EE2CFD3A7700A060A2 /* PTStop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

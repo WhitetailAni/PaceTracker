@@ -33,8 +33,21 @@ public class PaceAPI: NSObject {
         self.stopPredictionType = .arrivals
     }
     
+    private func getError(string: Any?) -> PTError? {
+        switch string as? String {
+        case "Timed out":
+            return PTError.timedOut
+        case "JSON parsing failed":
+            return PTError.invalidJson
+        case "No data received":
+            return PTError.noData
+        default:
+            return nil
+        }
+    }
+    
     ///Returns a list of all currently running Pace routes
-    public func getRoutes(dropPulseNumbers: Bool = false) -> [PTRoute] {
+    public func getRoutes(dropPulseNumbers: Bool = false) throws -> [PTRoute] {
         var returnedData: [String: Any] = [:]
         var routeArray: [PTRoute] = []
         
@@ -43,6 +56,12 @@ public class PaceAPI: NSObject {
             self.semaphore.signal()
         }
         semaphore.wait()
+        
+        if let string = returnedData["Error"] {
+            if let error = getError(string: string) {
+                throw error
+            }
+        }
         
         let routes: [[String: Any]] = returnedData["d"] as? [[String : Any]] ?? []
         for route in routes {
@@ -57,7 +76,7 @@ public class PaceAPI: NSObject {
     }
     
     ///Returns the operational directions (north/south, east/west, clockwise/counterclockwise, inbound/outbound) for a given route.
-    public func getDirectionsForRoute(routeID: Int) -> [PTDirection] {
+    public func getDirectionsForRoute(routeID: Int) throws -> [PTDirection] {
         var returnedData: [String: Any] = [:]
         var directionArray: [PTDirection] = []
         
@@ -66,6 +85,10 @@ public class PaceAPI: NSObject {
             self.semaphore.signal()
         }
         self.semaphore.wait()
+        
+        if let error = getError(string: returnedData["Error"]) {
+            throw error
+        }
         
         let directions: [[String: Any]] = returnedData["d"] as? [[String: Any]] ?? []
         for direction in directions {
@@ -76,7 +99,7 @@ public class PaceAPI: NSObject {
     }
     
     ///Returns a list of per-direction stops for a given route.
-    public func getStopsForRouteAndDirection(routeID: Int, directionID: Int) -> [PTStop] {
+    public func getStopsForRouteAndDirection(routeID: Int, directionID: Int) throws -> [PTStop] {
         var returnedData: [String: Any] = [:]
         var idArray: [Int] = []
         var stopArray: [PTStop] = []
@@ -87,23 +110,31 @@ public class PaceAPI: NSObject {
         }
         self.semaphore.wait()
         
+        if let error = getError(string: returnedData["Error"]) {
+            throw error
+        }
+        
         let stops: [[String: Any]] = returnedData["d"] as? [[String : Any]] ?? []
         for stop in stops {
             idArray.append(stop["id"] as? Int ?? -1)
         }
         
-        let tooManyStops = PaceAPI().getStopsForRoute(routeID: routeID)
-        for stop in tooManyStops {
-            if idArray.contains(stop.id) && !stopArray.contains(where: { $0.id == stop.id }) {
-                stopArray.append(stop)
+        do {
+            let tooManyStops = try PaceAPI().getStopsForRoute(routeID: routeID)
+            for stop in tooManyStops {
+                if idArray.contains(stop.id) && !stopArray.contains(where: { $0.id == stop.id }) {
+                    stopArray.append(stop)
+                }
             }
+            
+            return stopArray
+        } catch {
+            throw error
         }
-        
-        return stopArray
     }
     
     ///Returns the next 3 arrival times and other data for a given route, direction, and stop.
-    public func getPredictionTimesForStop(routeID: Int, directionID: Int, stopID: Int, timePointID: Int) -> PTPredictionSet {
+    public func getPredictionTimesForStop(routeID: Int, directionID: Int, stopID: Int, timePointID: Int) throws -> PTPredictionSet {
         var rawData: [String: Any] = [:]
         var predictionArray: [PTPrediction] = []
         
@@ -112,6 +143,10 @@ public class PaceAPI: NSObject {
             self.semaphore.signal()
         }
         self.semaphore.wait()
+        
+        if let error = getError(string: rawData["Error"]) {
+            throw error
+        }
         
         let returnedData: [String: Any] = rawData["d"] as? [String : Any] ?? ["man":"not good"]
         let predictionOverarchingData = returnedData["routeStops"] as? [[String: Any]] ?? [["oepsie":"whoepsie"]]
@@ -138,7 +173,7 @@ public class PaceAPI: NSObject {
     }
     
     ///Returns all stops on a given route for both directions.
-    public func getStopsForRoute(routeID: Int) -> [PTStop] {
+    public func getStopsForRoute(routeID: Int) throws -> [PTStop] {
         var returnedData: [String: Any] = [:]
         var stopArray: [PTStop] = []
         
@@ -148,33 +183,41 @@ public class PaceAPI: NSObject {
         }
         self.semaphore.wait()
         
-        let routeDirections = getDirectionsForRoute(routeID: routeID)
-        
-        let stops: [[String: Any]] = returnedData["d"] as? [[String : Any]] ?? []
-        for stop in stops {
-            let directionID = stop["directionID"] as? Int ?? 0
-            let directionName = stop["directionName"] as? String ?? ""
-            let location = CLLocationCoordinate2D(latitude: stop["lat"] as? Double ?? 0.0, longitude: stop["lon"] as? Double ?? 0.0)
-            let stopID = stop["stopID"] as? Int ?? 0
-            let stopName = stop["stopName"] as? String ?? ""
-            let stopNumber = stop["stopNumber"] as? Int ?? 0
-            let timePointID = stop["timePointID"] as? Int ?? 0
-            let direction: PTDirection = {
-                for routeDirection in routeDirections {
-                    if routeDirection.id == directionID {
-                        return routeDirection
-                    }
-                }
-                return PTDirection(id: 0, name: "Unknown")
-            }()
-            stopArray.append(PTStop(id: stopID, name: stopName, timePointID: timePointID, direction: direction, directionName: directionName, location: location, number: stopNumber))
+        if let error = getError(string: returnedData["Error"]) {
+            throw error
         }
         
-        return stopArray
+        do {
+            let routeDirections = try getDirectionsForRoute(routeID: routeID)
+            
+            let stops: [[String: Any]] = returnedData["d"] as? [[String : Any]] ?? []
+            for stop in stops {
+                let directionID = stop["directionID"] as? Int ?? 0
+                let directionName = stop["directionName"] as? String ?? ""
+                let location = CLLocationCoordinate2D(latitude: stop["lat"] as? Double ?? 0.0, longitude: stop["lon"] as? Double ?? 0.0)
+                let stopID = stop["stopID"] as? Int ?? 0
+                let stopName = stop["stopName"] as? String ?? ""
+                let stopNumber = stop["stopNumber"] as? Int ?? 0
+                let timePointID = stop["timePointID"] as? Int ?? 0
+                let direction: PTDirection = {
+                    for routeDirection in routeDirections {
+                        if routeDirection.id == directionID {
+                            return routeDirection
+                        }
+                    }
+                    return PTDirection(id: 0, name: "Unknown")
+                }()
+                stopArray.append(PTStop(id: stopID, name: stopName, timePointID: timePointID, direction: direction, directionName: directionName, location: location, number: stopNumber))
+            }
+            
+            return stopArray
+        } catch {
+            throw error
+        }
     }
     
     ///Returns an array of all active vehicles on a given route.
-    public func getVehiclesForRoute(routeID: Int) -> [PTVehicle] {
+    public func getVehiclesForRoute(routeID: Int) throws -> [PTVehicle] {
         var returnedData: [String: Any] = [:]
         var vehicleArray: [PTVehicle] = []
         
@@ -183,6 +226,10 @@ public class PaceAPI: NSObject {
             self.semaphore.signal()
         }
         self.semaphore.wait()
+        
+        if let error = getError(string: returnedData["Error"]) {
+            throw error
+        }
         
         let vehicles: [[String: Any]] = returnedData["d"] as? [[String : Any]] ?? []
         for vehicle in vehicles {
@@ -204,7 +251,7 @@ public class PaceAPI: NSObject {
     }
     
     ///Returns an MKPolyline for overlaying on an MKMapView from a given route ID.
-    public func getPolyLineForRouteID(routeID: Int) -> [[CLLocationCoordinate2D]] {
+    public func getPolyLineForRouteID(routeID: Int) throws -> [[CLLocationCoordinate2D]] {
         var rawData: Data = Data()
         var jsonResult: [String: Any] = [:]
         
@@ -220,10 +267,18 @@ public class PaceAPI: NSObject {
                 self.semaphore.signal()
             }
             
-            if let data: Data = data {
-                rawData = data
-                self.semaphore.signal()
+            if let error = error as? NSError {
+                if error.code == NSURLErrorTimedOut {
+                    jsonResult = ["Error": "Timed out"]
+                }
             }
+            
+            guard let data = data else {
+                jsonResult = ["Error": "No data received"]
+                return
+            }
+            
+            rawData = data
             
             self.semaphore.signal()
         }
@@ -234,7 +289,11 @@ public class PaceAPI: NSObject {
         do {
             jsonResult = try JSONSerialization.jsonObject(with: rawData, options: []) as? [String: Any] ?? ["Error": "Invalid JSON"]
         } catch {
-            print(error.localizedDescription)
+            jsonResult = ["Error": "Invalid JSON"]
+        }
+        
+        if let error = getError(string: jsonResult["Error"]) {
+            throw error
         }
         
         let data = jsonResult["d"] as? [String: Any] ?? [:]
@@ -255,11 +314,15 @@ public class PaceAPI: NSObject {
     
     ///Gets the current location of a Pace vehicle for its unique vehicle ID.
     public func getLocationForVehicle(vehicleID: String, routeID: Int) -> CLLocationCoordinate2D {
-        let vehicleList = PaceAPI().getVehiclesForRoute(routeID: routeID)
-        for vehicle in vehicleList {
-            if vehicleID == vehicle.vehicleNumber {
-                return vehicle.location
+        do {
+            let vehicleList = try PaceAPI().getVehiclesForRoute(routeID: routeID)
+            for vehicle in vehicleList {
+                if vehicleID == vehicle.vehicleNumber {
+                    return vehicle.location
+                }
             }
+        } catch {
+            print(error.localizedDescription)
         }
         return CLLocationCoordinate2D(latitude: -4, longitude: -4)
     }
@@ -282,7 +345,7 @@ public class PaceAPI: NSObject {
                         completion(result)
                     }
                 }
-                return
+                completion(["Error": "Timed out"])
             }
             
             guard let data = data else {
@@ -294,7 +357,8 @@ public class PaceAPI: NSObject {
                 let jsonResult = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] ?? ["Error": "Invalid JSON"]
                 completion(jsonResult)
             } catch {
-                completion(["Error": "JSON parsing failed: \(error.localizedDescription)"])
+                print(error.localizedDescription)
+                completion(["Error": "JSON parsing failed"])
             }
         }
         
